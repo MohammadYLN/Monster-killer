@@ -3,7 +3,7 @@ const playerHealthBar = document.getElementById('player-health');
 const bonusLifeEl = document.getElementById('bonus-life');
 
 const attackBtn = document.getElementById('attack-btn');
-const strongAttackBtn = document.getElementById('stront-attack-btn');
+const strongAttackBtn = document.getElementById('strong-attack-btn');
 const healBtn = document.getElementById('heal-btn');
 const logBtn = document.getElementById('log-btn');
 
@@ -16,13 +16,13 @@ function adjustHealthBar(maxlife){
 
 function dealMonsterDamage(damage){
     const dealtDamage = Math.random() * damage;
-    monsterHealthBar = +monsterHealthBar - dealtDamage;
+    monsterHealthBar.value = +monsterHealthBar.value - dealtDamage;
     return dealtDamage;
 }
 
 function dealtPlayerDamage(damage){
     const dealtDamage = Math.random() * damage;
-    playerHealthBar = +playerHealthBar - dealtDamage;
+    playerHealthBar.value = +playerHealthBar.value - dealtDamage;
     return dealtDamage;
 }
 

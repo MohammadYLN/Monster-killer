@@ -14,7 +14,7 @@ let currentPlayerHealth = chosenMaxLife;
 
 let hasBonusLife = true;
 
-adjustHealthBars(chosenMaxLife);
+adjustHealthBar(chosenMaxLife);
 
 function reset(){
     currentMonsterHealth = chosenMaxLife;
@@ -23,7 +23,7 @@ function reset(){
 }
 function endRound(){
     const initialPlayerHealth = currentPlayerHealth;
-    const playerDamage = dealtPlayerDamage(ATTACK_VALUE);
+    const playerDamage = dealtPlayerDamage(MONSTER_ATTACK_VALUE);
     currentPlayerHealth -= playerDamage;
 
     if(currentPlayerHealth <=0 && hasBonusLife){
@@ -41,6 +41,43 @@ function endRound(){
         alert('You have draw!');
     }
     if(currentMonsterHealth <= 0 || currentPlayerHealth <= 0){
-        Game();
+        reset();
     }
+
 }
+function attackMonster(mode){
+    let maxDamage;
+    if(mode === 'ATTACK'){
+        maxDamage = ATTACK_VALUE;
+    }
+    else if(mode === 'STRONG_ATTACK'){
+        maxDamage = STRONG_ATTACK_VALUE;
+    }
+    const damage = dealMonsterDamage(maxDamage);
+    currentMonsterHealth -= damage;
+    endRound();
+    }
+function attackHandler(){
+    attackMonster('ATTACK');
+}
+function strongAttackHandler(){
+    attackMonster('STRONG_ATTACK');
+}
+
+function healPlayerHandler(){
+    let healValue;
+    if(currentPlayerHealth >= chosenMaxLife - HEAL_VALUE){
+        alert("You can't heal to more than your max initial health.");
+        healValue = chosenMaxLife - currentPlayerHealth;
+    }else{
+        healValue = HEAL_VALUE;
+    }
+    increasePlayerHealth(healValue);
+    currentPlayerHealth += healValue;
+    endRound();
+}
+
+
+attackBtn.addEventListener('click',attackHandler);
+strongAttackBtn.addEventListener('click',strongAttackHandler);
+healBtn.addEventListener('click',healPlayerHandler);
